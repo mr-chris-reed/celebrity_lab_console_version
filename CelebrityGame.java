@@ -12,22 +12,29 @@ public class CelebrityGame
 	/**
 	 * A reference to a Celebrity or subclass instance.
 	 */
-
+    private Celebrity currentCeleb;
+  
 	/**
 	 * The ArrayList of Celebrity values that make up the game
 	 */
-
+    private ArrayList<Celebrity> allCelebs;
+  
   /**
    * Scanner to get input from users
    */
-
+    private Scanner scanner;
   /**
    * To keep score of correct guesses
    */
-
+    private int points;
+  
   // constructor
 	public CelebrityGame()
 	{
+    allCelebs = new ArrayList<Celebrity>();
+    currentCeleb = null;
+    scanner = new Scanner(System.in);
+    points = 0;
 	}
 
 	/**
@@ -35,6 +42,17 @@ public class CelebrityGame
 	 */
 	public void prepareGame()
 	{
+    String message = "Player 1, please input Celebrity names and hints.";
+    printMessage(message);
+    message = "Type the celebrity name: ";
+    printMessage(message);
+    String name = scanner.nextLine();
+    validateCelebrity(name);
+    message = "Type hint for celebrity: ";
+    printMessage(message);
+    String hint = scanner.nextLine();
+    currentCeleb = new Celebrity(name, hint);
+    
 	}
 
 	/**
@@ -82,6 +100,11 @@ public class CelebrityGame
 	 */
 	public boolean validateCelebrity(String name)
 	{
+    name = name.trim();
+    if (name.length() >= 4)
+    {
+      return true;
+    }
 		return false;
 	}
 
@@ -94,6 +117,11 @@ public class CelebrityGame
 	 */
 	public boolean validateClue(String clue, String type)
 	{
+    clue = clue.trim();
+    if (clue.length() >= 10)
+    {
+      return true;
+    }
 		return false;
 	}
 
@@ -110,6 +138,6 @@ public class CelebrityGame
    */
   public void printMessage(String message)
   {
-    
+    System.out.println(message);
   }
 }
