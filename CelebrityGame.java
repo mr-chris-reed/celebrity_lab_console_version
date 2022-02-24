@@ -42,17 +42,42 @@ public class CelebrityGame
 	 */
 	public void prepareGame()
 	{
-    String message = "Player 1, please input Celebrity names and hints.";
-    printMessage(message);
-    message = "Type the celebrity name: ";
-    printMessage(message);
-    String name = scanner.nextLine();
-    validateCelebrity(name);
-    message = "Type hint for celebrity: ";
-    printMessage(message);
-    String hint = scanner.nextLine();
-    currentCeleb = new Celebrity(name, hint);
-    
+    int numOfCelebs = 0;
+    do
+      {
+        String message = "Player 1, please input Celebrity names and hints.";
+        printMessage(message);
+        message = "Type the celebrity name: ";
+        printMessage(message);
+        String name = scanner.nextLine();
+          
+        if (!validateCelebrity(name))
+        {
+          System.out.println("Name is too short");
+          while (!validateCelebrity(name))
+          {
+             printMessage(message);
+             name = scanner.nextLine(); 
+          }
+        }
+        message = "Type hint for celebrity: ";
+        printMessage(message);
+        String hint = scanner.nextLine();
+        if (!validateClue(hint,""))
+        {
+          System.out.println("Hint is too short");
+          while (!validateClue(hint,""))
+          {
+             printMessage(message);
+             hint = scanner.nextLine(); 
+          }
+        }
+        addCelebrity(name,hint);
+        numOfCelebs++;
+      } 
+      while(numOfCelebs < 1);
+      //System.out.println(allCelebs);
+      play();
 	}
 
 	/**
@@ -63,8 +88,11 @@ public class CelebrityGame
 	 * @return Whether it matches regardless of case or extraneous external
 	 *         spaces.
 	 */
-	public boolean processGuess(String guess)
+
+  /** Index used in for loop to get celebrity **/
+	public boolean processGuess(String guess, int index)
 	{
+
 		return false;
 	}
 
@@ -75,7 +103,14 @@ public class CelebrityGame
 	 */
 	public void play()
 	{
-		
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    for (int i = 0; i < allCelebs.size(); i++)
+    {   
+      System.out.println("Guess the celebrity based on this hint:")
+      System.out.println(allCelebs.get(i).getHint());
+      
+    }
+    
 	}
 
 	/**
@@ -88,9 +123,9 @@ public class CelebrityGame
 	 * @param type
 	 *            What type of celebrity
 	 */
-	public void addCelebrity(String name, String guess, String type)
+	public void addCelebrity(String name, String guess /**String type**/)
 	{
-		
+		allCelebs.add(new Celebrity(name,guess));
 	}
 
 	/**
