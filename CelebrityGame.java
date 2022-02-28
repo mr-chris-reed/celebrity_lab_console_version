@@ -75,9 +75,10 @@ public class CelebrityGame
         addCelebrity(name,hint);
         numOfCelebs++;
       } 
-      while(numOfCelebs < 1);
+      while(numOfCelebs < 5);
       //System.out.println(allCelebs);
       play();
+      restart();
 	}
 
 	/**
@@ -92,7 +93,13 @@ public class CelebrityGame
   /** Index used in for loop to get celebrity **/
 	public boolean processGuess(String guess, int index)
 	{
-
+    if (guess.equals(allCelebs.get(index).getName())){
+      System.out.println("That is Correct!");
+      points++;
+      System.out.println(points);
+      return true;
+    }
+    System.out.println("Incorrect");
 		return false;
 	}
 
@@ -106,9 +113,9 @@ public class CelebrityGame
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     for (int i = 0; i < allCelebs.size(); i++)
     {   
-      System.out.println("Guess the celebrity based on this hint:")
+      System.out.println("Guess the celebrity based on this hint:");
       System.out.println(allCelebs.get(i).getHint());
-      
+    processGuess(scanner.nextLine(),i);
     }
     
 	}
@@ -165,7 +172,7 @@ public class CelebrityGame
    */
   public void getUserInput()
   {
-    
+    String guess = scanner.nextLine();
   }
 
   /**
@@ -174,5 +181,17 @@ public class CelebrityGame
   public void printMessage(String message)
   {
     System.out.println(message);
+  }
+
+  public void restart()
+  {
+    System.out.println("Do you want to play again?");
+    if(scanner.nextLine().equals("yes")){
+      System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+      prepareGame();
+    }
+    else{
+      System.out.println("Thanks for playing");
+    }
   }
 }
